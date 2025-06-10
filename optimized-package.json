@@ -1,0 +1,89 @@
+{
+  "name": "airplay-receiver-pro",
+  "version": "2.0.0",
+  "description": "Ultra-Performance AirPlay Receiver with iOS Design",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --enable-gpu-rasterization --enable-zero-copy",
+    "build": "electron-builder --publish=never",
+    "build-win": "electron-builder --win --x64",
+    "build-mac": "electron-builder --mac --universal",
+    "build-linux": "electron-builder --linux --x64",
+    "dev": "electron . --dev --enable-gpu-rasterization",
+    "optimize": "electron . --enable-gpu-rasterization --enable-zero-copy --max-old-space-size=2048"
+  },
+  "build": {
+    "appId": "com.airplay.receiver.pro",
+    "productName": "AirPlay Receiver Pro",
+    "directories": {
+      "output": "dist"
+    },
+    "files": ["**/*", "!node_modules", "!dist", "!.git"],
+    "extraResources": [
+      {
+        "from": "assets/",
+        "to": "assets/"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["universal"]
+        }
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.utilities",
+      "hardenedRuntime": true,
+      "entitlements": "assets/entitlements.mac.plist"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.png",
+      "category": "AudioVideo"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "AirPlay Receiver Pro"
+    },
+    "compression": "maximum",
+    "publish": null
+  },
+  "dependencies": {
+    "electron": "^27.0.0",
+    "bonjour-service": "^1.1.1",
+    "express": "^4.18.2",
+    "ws": "^8.14.2",
+    "node-airplay": "^1.0.0",
+    "sharp": "^0.32.6",
+    "ffmpeg-static": "^5.2.0"
+  },
+  "devDependencies": {
+    "electron-builder": "^24.6.4",
+    "@types/node": "^20.8.0"
+  },
+  "keywords": ["airplay", "screen-mirroring", "iphone", "desktop", "performance", "ios", "low-latency"],
+  "author": "AirPlay Receiver Pro",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
